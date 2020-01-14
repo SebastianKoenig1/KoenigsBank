@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:thy="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/home">Willkommen</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/kontodaten"><span th:text="${kunde.getVorname()}"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/buchung">Transaktion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tan">Tan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">Guthaben: <span th:text="${konto.getKontostand()}"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<body>
+<h4>
+    Ihre Transaktionen:
+</h4>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Von Konto</th>
+        <th scope="col">Zu Konto </th>
+        <th scope="col">Beschreibung </th>
+        <th scope="col">Betrag </th>
+        <th scope="col">Uhrzeit/Datum </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaktion : ${transaktionen}">
+        <td><span th:text="${transaktion.getVonKonto().getKontonummer()}"></span></td>
+        <td><span th:text="${transaktion.getZuKonto().getKontonummer()}"></span></td>
+        <td><span th:text="${transaktion.getBeschreibung()}"></span></td>
+        <td><span th:text="${transaktion.getBetrag()}"></span></td>
+        <td><span th:text="${transaktion.getZeitstempel()}"></span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

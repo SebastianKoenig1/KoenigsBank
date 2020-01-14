@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/home">Willkommen</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/kontodaten"><span th:text="${kunde.getVorname()}"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/buchung">Transaktion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tan">Tan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">Guthaben: <span th:text="${konto.getKontostand()}"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<body>
+<form class="needs-validation" novalidate method="post" action="/aenderung">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" th:value="${kunde.getEmail()}" name="email">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">New Password</label>
+            <input type="password" class="form-control" id="inputPassword4" name="passwort">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Vorname</label>
+            <input type="text" class="form-control" id="inputVorname" th:value="${kunde.getVorname()}" name="vorname">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Nachname</label>
+            <input type="text" class="form-control" id="inputNachname" th:value="${kunde.getNachname()}" name="nachname">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="inputAddress">Straße</label>
+            <input type="text" class="form-control" id="inputAddress" th:value="${kunde.getAdresse().getStrassenname()}" name="straße">
+        </div>
+        <div class="form-group">
+            <label for="inputAddress2">Hausnummer 2</label>
+            <input type="text" class="form-control" id="inputAddress2" th:value="${kunde.getAdresse().getHausnummer()}" name="hausnummer">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCity">Stadt</label>
+            <input type="text" class="form-control" id="inputCity" th:value="${kunde.getAdresse().getOrt()}" name="ort">
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputZip">Plz</label>
+            <input type="text" class="form-control" id="inputZip" th:value="${kunde.getAdresse().getPlz()}" name="plz">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Ändern</button>
+</form>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+</body>
+</html>
