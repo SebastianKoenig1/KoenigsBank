@@ -52,7 +52,6 @@ public class  KoenigsBankApplication implements CommandLineRunner {
 		tanService.erzeugen(bKu.getKonto());
 		tanService.erzeugen(aKu.getKonto());
 		tanService.erzeugen(aKu.getKonto());
-		System.out.println("Tans von A" + tanService.getAllTansVonKonto(kontoService.findenByKontonummer(aKo.getKontonummer())));
-		//System.out.println(tanService.getAllUnusedTansVonKonto(k.getKonto()));
+		//System.out.println("Tans von A" + tanService.getAllTansVonKonto(kontoService.findenByKontonummer(aKo.getKontonummer())));
 	}
 }

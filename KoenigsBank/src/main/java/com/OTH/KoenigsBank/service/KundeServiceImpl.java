@@ -42,6 +42,9 @@ public class KundeServiceImpl implements KundeService, UserDetailsService {
         Optional<Kunde> result = kundeRepository.findByKonto(kontoService.findenByKontonummer(SecurityContextHolder.getContext().getAuthentication().getName()));
         Kunde tempKunde = result.get();
 
+        if(kunde.getPassword().isEmpty())
+            kunde.setPasswort(passwordEncoder.encode(tempKunde.getPasswort()));
+
         if(!tempKunde.getPasswort().equals(kunde.getPasswort()))
             kunde.setPasswort(passwordEncoder.encode(kunde.getPasswort()));
 

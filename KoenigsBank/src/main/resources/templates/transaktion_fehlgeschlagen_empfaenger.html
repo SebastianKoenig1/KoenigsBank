@@ -21,10 +21,10 @@
                 <a class="nav-link" href="/tan">Tan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/logout">logout</a>
+                <a class="nav-link disabled">Guthaben: <span th:text="${konto.getKontostand()}"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled">Guthaben: <span th:text="${konto.getKontostand()}"></span></a>
+                <a class="nav-link" href="/logout">logout</a>
             </li>
         </ul>
     </div>

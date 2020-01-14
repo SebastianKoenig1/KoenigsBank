@@ -7,7 +7,6 @@ import com.OTH.KoenigsBank.service.TanService;
 import com.OTH.KoenigsBank.service.TransaktionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,9 +19,6 @@ public class HomeController {
 
     @Autowired
     private KundeService kundeService;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private TransaktionService transaktionService;
@@ -99,6 +95,19 @@ public class HomeController {
         model.addAttribute("kunde", kundeService.getKundeByKonto(kontoService.findenByKontonummer(currUserName)));
         model.addAttribute("konto", kontoService.findenByKontonummer(currUserName));
         model.addAttribute("tannummern", tanService.getAllTansVonKonto(kontoService.findenByKontonummer(currUserName)));
+        return "tan";
+    }
+
+    @RequestMapping("/tanhinzufuegen")
+    public String tannummerHinzufuegen(Model model){
+        String currUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Tan> tempList = tanService.getAllUnusedTansVonKonto(kontoService.findenByKontonummer(currUserName));
+        if(tempList.size() < 5)
+            tanService.erzeugen(kontoService.findenByKontonummer(currUserName));
+        model.addAttribute("kunde", kundeService.getKundeByKonto(kontoService.findenByKontonummer(currUserName)));
+        model.addAttribute("konto", kontoService.findenByKontonummer(currUserName));
+        model.addAttribute("tannummern", tanService.getAllTansVonKonto(kontoService.findenByKontonummer(currUserName)));
+
         return "tan";
     }
 
